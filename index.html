@@ -21,14 +21,16 @@
   /* ===== NAV ===== */
   #nav {
     position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
-    display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; padding: 6px 8px;
+    display: flex; flex-direction: row; overflow-x: auto; gap: 4px; padding: 6px 8px;
     background: rgba(13,27,42,0.97); border-top: 2px solid rgba(255,255,255,0.1);
+    scrollbar-width: none; -ms-overflow-style: none;
   }
+  #nav::-webkit-scrollbar { display: none; }
   .nav-btn {
-    padding: 8px 4px; border: none; border-radius: 6px;
+    padding: 8px 10px; border: none; border-radius: 6px;
     font-size: 9px; font-weight: 700; cursor: pointer; text-align: center;
     transition: all 0.2s; opacity: 0.65; text-transform: uppercase; letter-spacing: 0.3px;
-    line-height: 1.2;
+    line-height: 1.2; white-space: nowrap; flex-shrink: 0;
   }
   .nav-btn.active { opacity: 1; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.4); }
   .nav-btn[data-slide="0"] { background: #1B4FD8; color: #fff; }
@@ -42,7 +44,7 @@
   .nav-btn[data-slide="8"] { background: #06D6A0; color: #0D1B2A; }
 
   /* ===== SLIDES ===== */
-  .slide { display: none; height: calc(100vh - 88px); overflow-y: auto; position: relative; }
+  .slide { display: none; height: calc(100vh - 50px); overflow-y: auto; position: relative; }
   .slide.active { display: flex; flex-direction: column; }
 
   /* ===== COVER ===== */
