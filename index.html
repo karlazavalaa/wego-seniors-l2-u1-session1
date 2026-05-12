@@ -16,13 +16,13 @@
     --light: #F8F9FF;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'Segoe UI', Arial, sans-serif; background: #FFFFFF; color: #1a1a2e; overflow: hidden; height: 100vh; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: #0D1B2A; color: #fff; overflow: hidden; height: 100vh; }
 
   /* ===== NAV ===== */
   #nav {
     position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
     display: flex; flex-direction: row; overflow-x: auto; gap: 4px; padding: 6px 8px;
-    background: rgba(255,255,255,0.97); border-top: 2px solid rgba(0,0,0,0.08);
+    background: rgba(13,27,42,0.97); border-top: 2px solid rgba(255,255,255,0.1);
     scrollbar-width: none; -ms-overflow-style: none;
   }
   #nav::-webkit-scrollbar { display: none; }
@@ -113,24 +113,24 @@
   /* ===== SECTION HEADER ===== */
     .section-header {
     padding: 18px 28px 14px 36px;
-    background: #fff;
+    background: linear-gradient(135deg, #0D1B2A 0%, #111f35 100%);
     border-bottom: 3px solid;
     border-left: 6px solid;
     flex-shrink: 0;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
   }
   .section-tag {
     font-size: 10px; font-weight: 800; letter-spacing: 3px; text-transform: uppercase;
-    color: #888; margin-bottom: 6px;
+    opacity: 0.55; margin-bottom: 6px;
   }
   .section-title {
     font-size: clamp(22px, 3vw, 34px); font-weight: 900; line-height: 1.1;
-    color: #1a1a2e;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.3);
   }
   .section-subtitle {
-    font-size: 13px; color: #666; margin-top: 6px; font-weight: 500;
+    font-size: 13px; opacity: 0.65; margin-top: 6px; font-weight: 500;
   }
-  .section-content { flex: 1; padding: 20px 28px; overflow-y: auto; background: #f8f9ff; }
+  .section-content { flex: 1; padding: 20px 28px; overflow-y: auto; }
 
   /* ===== WARM-UP ===== */
   #slide-1 .section-header { border-color: var(--orange); }
@@ -176,26 +176,26 @@
   }
   .vocab-card {
     border-radius: 14px; overflow: hidden; cursor: pointer;
-    transition: all 0.3s; position: relative; background: #fff;
-    border: 2px solid #e8e8f0;
-    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+    transition: all 0.3s; position: relative; background: #111f35;
+    border: 2px solid rgba(255,255,255,0.08);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.3);
   }
   .vocab-card:hover { transform: translateY(-5px); border-color: var(--yellow); box-shadow: 0 8px 20px rgba(255,214,0,0.25); }
-  .vocab-card.revealed { border-color: var(--green); background: #f0fdf8; }
+  .vocab-card.revealed { border-color: var(--green); }
   .vocab-card img {
     width: 100%; height: 110px; object-fit: cover; object-position: center top;
     display: block;
   }
   .vocab-card-body { padding: 8px 10px; }
   .vocab-word {
-    font-size: 12px; font-weight: 800; color: var(--green);
+    font-size: 12px; font-weight: 800; color: var(--yellow);
     display: none; animation: fadeIn 0.3s; text-align: center;
   }
   .vocab-card.revealed .vocab-word { display: block; }
   .vocab-hint {
-    font-size: 10px; color: #999; margin-top: 2px; text-align: center;
+    font-size: 10px; color: rgba(255,255,255,0.4); margin-top: 2px; text-align: center;
   }
-  .vocab-card.revealed .vocab-hint { color: var(--green); opacity: 0.7; }
+  .vocab-card.revealed .vocab-hint { opacity: 0.7; }
   .vocab-controls {
     display: flex; gap: 10px; margin-bottom: 16px; flex-wrap: wrap;
   }
@@ -229,7 +229,7 @@
   }
   .sprint-timer-inner {
     width: 160px; height: 160px; border-radius: 50%;
-    background: var(--dark); display: flex; flex-direction: column;
+    background: #0D1B2A; display: flex; flex-direction: column;
     align-items: center; justify-content: center;
   }
   .sprint-time {
@@ -253,7 +253,7 @@
   #slide-4 .section-header { border-color: var(--purple); }
   .grammar-container { display: flex; flex-direction: column; gap: 20px; }
   .grammar-box {
-    background: rgba(124,58,237,0.12); border: 2px solid rgba(124,58,237,0.4);
+    background: rgba(124,58,237,0.15); border: 2px solid rgba(124,58,237,0.4);
     border-radius: 16px; padding: 20px 24px;
   }
   .grammar-box h3 {
