@@ -45,6 +45,7 @@
 
   /* ===== SLIDES ===== */
   .slide { display: none; height: calc(100vh - 50px); overflow-y: auto; position: relative; }
+  #slide-0 { height: 100vh !important; }
   .slide.active { display: flex; flex-direction: column; }
 
   /* ===== COVER ===== */
@@ -858,6 +859,15 @@ function goTo(n) {
   if (slide) { slide.classList.add('active'); slide.scrollTop = 0; }
   var btn = document.querySelector('.nav-btn[data-slide="' + n + '"]');
   if (btn) btn.classList.add('active');
+  // Hide nav bar on cover, show on all other slides
+  var nav = document.getElementById('nav');
+  if (n === 0) {
+    nav.style.display = 'none';
+    document.querySelectorAll('.slide').forEach(s => s.style.height = '100vh');
+  } else {
+    nav.style.display = 'flex';
+    document.querySelectorAll('.slide').forEach(s => s.style.height = 'calc(100vh - 50px)');
+  }
   window.scrollTo(0,0);
 }
 
@@ -1079,6 +1089,11 @@ function launchConfetti() {
   document.head.appendChild(style);
   setTimeout(() => { container.style.display = 'none'; container.innerHTML = ''; }, 4000);
 }
+
+// ===== INIT: hide nav on cover =====
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('nav').style.display = 'none';
+});
 </script>
 </body>
 </html>
