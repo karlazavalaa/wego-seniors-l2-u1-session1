@@ -2,54 +2,31 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <title>WE GO · GO Seniors · L2 · U1 · Session 1</title>
 <style>
-  :root {
-    --blue: #1B4FD8;
-    --yellow: #FFD600;
-    --orange: #FF6B2B;
-    --green: #00B67A;
-    --purple: #7C3AED;
-    --pink: #E91E8C;
-    --dark: #0D1B2A;
-    --light: #F8F9FF;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'Segoe UI', Arial, sans-serif; background: #0D1B2A; color: #fff; overflow: hidden; height: 100vh; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Barlow', 'Segoe UI', system-ui, sans-serif; background: #05046A; color: #fff; overflow: hidden; height: 100vh; width: 100vw; display: flex; flex-direction: column; }
 
-  /* ===== NAV ===== */
-  #nav {
-    position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
-    display: flex; flex-direction: row; overflow-x: auto; gap: 4px; padding: 6px 8px;
-    background: rgba(13,27,42,0.97); border-top: 2px solid rgba(255,255,255,0.1);
-    scrollbar-width: none; -ms-overflow-style: none;
-  }
-  #nav::-webkit-scrollbar { display: none; }
-  .nav-btn {
-    padding: 8px 10px; border: none; border-radius: 6px;
-    font-size: 9px; font-weight: 700; cursor: pointer; text-align: center;
-    transition: all 0.2s; opacity: 0.65; text-transform: uppercase; letter-spacing: 0.3px;
-    line-height: 1.2; white-space: nowrap; flex-shrink: 0;
-  }
-  .nav-btn.active { opacity: 1; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.4); }
-  .nav-btn[data-slide="0"] { background: #1B4FD8; color: #fff; }
-  .nav-btn[data-slide="1"] { background: #FF6B2B; color: #fff; }
-  .nav-btn[data-slide="2"] { background: #FFD600; color: #0D1B2A; }
-  .nav-btn[data-slide="3"] { background: #00B67A; color: #fff; }
-  .nav-btn[data-slide="4"] { background: #7C3AED; color: #fff; }
-  .nav-btn[data-slide="5"] { background: #E91E8C; color: #fff; }
-  .nav-btn[data-slide="6"] { background: #00B4D8; color: #fff; }
-  .nav-btn[data-slide="7"] { background: #F77F00; color: #fff; }
-  .nav-btn[data-slide="8"] { background: #06D6A0; color: #0D1B2A; }
+/* ===== NAV BAR ===== */
+.nav-bar { height: 52px; background: rgba(5,4,106,0.97); padding: 0 12px; display: flex; align-items: center; justify-content: space-between; border-top: 2px solid rgba(241,196,5,0.4); z-index: 100; flex-shrink: 0; position: fixed; bottom: 0; left: 0; right: 0; }
+.nav-btn { background: #F1C405; border: none; color: #05046A; width: 34px; height: 34px; border-radius: 50%; cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 0.2s; font-weight: 900; }
+.nav-btn:hover { background: #d4a800; }
+.nav-btn:disabled { background: rgba(255,255,255,0.1); color: white; cursor: not-allowed; }
+.nav-pills { display: flex; gap: 5px; flex: 1; margin: 0 8px; overflow-x: auto; scrollbar-width: none; }
+.nav-pills::-webkit-scrollbar { display: none; }
+.nav-pill { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.6); padding: 5px 10px; border-radius: 20px; cursor: pointer; font-size: 10px; font-weight: 600; white-space: nowrap; flex-shrink: 0; transition: all 0.2s; }
+.nav-pill.active, .nav-pill:hover { background: #F1C405; color: #05046A; border-color: #F1C405; }
 
-  /* ===== SLIDES ===== */
-  .slide { display: none; height: calc(100vh - 50px); overflow-y: auto; position: relative; }
-  #slide-0 { height: 100vh !important; }
-  .slide.active { display: flex; flex-direction: column; }
+/* ===== SLIDE SYSTEM ===== */
+.slide { display: none; height: 100vh; width: 100vw; flex-direction: column; overflow: hidden; position: absolute; top: 0; left: 0; }
+.slide.active { display: flex; }
+/* Padding for fixed nav bar */
+.slide-content { padding-bottom: 52px; }
 
   /* ===== COVER ===== */
-  #slide-0 { background: #0D1B2A; }
+#slide-0 { background: #05046A; }
   .cover-image-container { flex: 1; position: relative; overflow: hidden; min-height: 0; }
   .cover-image-container img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
   .cover-info-overlay { position: absolute; top: 24px; left: 24px; right: 24px; }
@@ -57,12 +34,12 @@
   .cover-title { font-size: 64px; font-weight: 700; color: #fff; line-height: 1.05; margin-bottom: 8px; }
   .cover-title span { color: #F1C405; }
   .cover-meta { font-size: 16px; color: rgba(255,255,255,0.9); font-weight: 500; }
-  .cover-buttons { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 8px; padding: 12px; background: rgba(13,27,42,0.97); flex-shrink: 0; }
+  .cover-buttons { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 8px; padding: 12px; background: rgba(5,4,106,0.97); flex-shrink: 0; }
   .cover-btn { background: #7919EF; border: none; color: #fff; padding: 14px 14px; border-radius: 12px; cursor: pointer; text-align: center; transition: all 0.2s; }
   .cover-btn:hover { filter: brightness(1.2); transform: translateY(-2px); }
   .cover-btn-label { display: block; font-size: 13px; font-weight: 500; line-height: 1.3; }
   .cover-btn:nth-child(1) { background: #FF6B2B; }
-  .cover-btn:nth-child(2) { background: #FFD600; color: #0D1B2A; }
+  .cover-btn:nth-child(2) { background: #F1C405; color: #0D1B2A; }
   .cover-btn:nth-child(3) { background: #00B67A; }
   .cover-btn:nth-child(4) { background: #7C3AED; }
   .cover-btn:nth-child(5) { background: #E91E8C; }
@@ -82,13 +59,13 @@
   }
   .cover-label {
     font-size: 13px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
-    color: var(--yellow); margin-bottom: 12px;
+    color: #F1C405; margin-bottom: 12px;
   }
   .cover-title {
     font-size: clamp(32px, 5vw, 60px); font-weight: 900; line-height: 1.1;
     color: #fff; margin-bottom: 8px;
   }
-  .cover-title span { color: var(--yellow); }
+  .cover-title span { color: #F1C405; }
   .cover-meta {
     font-size: 14px; color: rgba(255,255,255,0.7); margin-bottom: 32px;
   }
@@ -102,7 +79,7 @@
   }
   .cover-card:hover { transform: translateY(-2px); filter: brightness(1.15); }
   .cover-card.c1 { background: var(--orange); }
-  .cover-card.c2 { background: var(--yellow); color: var(--dark); }
+  .cover-card.c2 { background: #F1C405; color: var(--dark); }
   .cover-card.c3 { background: var(--green); }
   .cover-card.c4 { background: var(--purple); }
   .cover-card.c5 { background: var(--pink); }
@@ -110,30 +87,17 @@
   .cover-card.c7 { background: #F77F00; }
   .cover-card.c8 { background: #06D6A0; color: var(--dark); }
 
-  /* ===== SECTION HEADER ===== */
-    .section-header {
-    padding: 18px 28px 14px 36px;
-    background: linear-gradient(135deg, #0D1B2A 0%, #111f35 100%);
-    border-bottom: 3px solid;
-    border-left: 6px solid;
-    flex-shrink: 0;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-  }
-  .section-tag {
-    font-size: 10px; font-weight: 800; letter-spacing: 3px; text-transform: uppercase;
-    opacity: 0.55; margin-bottom: 6px;
-  }
-  .section-title {
-    font-size: clamp(22px, 3vw, 34px); font-weight: 900; line-height: 1.1;
-    text-shadow: 0 2px 8px rgba(0,0,0,0.3);
-  }
-  .section-subtitle {
-    font-size: 13px; opacity: 0.65; margin-top: 6px; font-weight: 500;
-  }
-  .section-content { flex: 1; padding: 20px 28px; overflow-y: auto; }
+/* ===== TOP HEADER ===== */
+.top-header { padding: 10px 16px; display: flex; align-items: center; justify-content: space-between; background: rgba(255,255,255,0.06); border-bottom: 1px solid rgba(255,255,255,0.1); flex-shrink: 0; min-height: 50px; }
+.header-left { display: flex; align-items: center; gap: 10px; }
+.header-tag { font-size: 10px; font-weight: 700; color: #05046A; padding: 3px 10px; border-radius: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+.header-title { font-size: 15px; font-weight: 800; color: white; }
+.slide-counter { background: rgba(241,196,5,0.15); border: 1px solid rgba(241,196,5,0.4); color: #F1C405; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; }
+/* Keep section-content for inner padding */
+.section-content { flex: 1; padding: 16px 20px; overflow-y: auto; }
 
   /* ===== WARM-UP ===== */
-  #slide-1 .section-header { border-color: var(--orange); }
+#slide-1 { background: linear-gradient(140deg, #05046A, #07068A); }
   .warmup-container {
     display: flex; gap: 20px; align-items: stretch; height: 100%;
   }
@@ -141,8 +105,8 @@
     flex: 1; border-radius: 16px; overflow: hidden; position: relative; cursor: pointer;
     transition: all 0.3s; border: 3px solid transparent;
   }
-  .warmup-option:hover { transform: scale(1.02); border-color: var(--yellow); }
-  .warmup-option.selected { border-color: var(--yellow); box-shadow: 0 0 30px rgba(255,214,0,0.4); }
+  .warmup-option:hover { transform: scale(1.02); border-color: #F1C405; }
+  .warmup-option.selected { border-color: #F1C405; box-shadow: 0 0 30px rgba(241,196,5,0.4); }
   .warmup-option img {
     width: 100%; height: 100%; object-fit: cover; object-position: center top;
     filter: brightness(0.65);
@@ -155,12 +119,12 @@
   .warmup-emoji { font-size: 36px; display: block; margin-bottom: 6px; }
   .warmup-vs {
     display: flex; align-items: center; justify-content: center;
-    font-size: 28px; font-weight: 900; color: var(--yellow);
+    font-size: 28px; font-weight: 900; color: #F1C405;
     writing-mode: vertical-rl; flex-shrink: 0;
-    text-shadow: 0 0 20px rgba(255,214,0,0.6);
+    text-shadow: 0 0 20px rgba(241,196,5,0.6);
   }
   .warmup-question {
-    background: rgba(255,214,0,0.1); border: 2px solid var(--yellow);
+    background: rgba(241,196,5,0.1); border: 2px solid #F1C405;
     border-radius: 12px; padding: 16px 20px; margin-top: 16px;
     font-size: 15px; font-weight: 600; text-align: center; display: none;
   }
@@ -168,7 +132,7 @@
   @keyframes fadeIn { from { opacity:0; transform: translateY(10px); } to { opacity:1; transform: translateY(0); } }
 
   /* ===== VOCABULARY ===== */
-  #slide-2 .section-header { border-color: var(--yellow); }
+#slide-2 { background: linear-gradient(140deg, #05046A, #07068A); }
     .vocab-grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
@@ -176,11 +140,11 @@
   }
   .vocab-card {
     border-radius: 14px; overflow: hidden; cursor: pointer;
-    transition: all 0.3s; position: relative; background: #111f35;
+    transition: all 0.3s; position: relative; background: rgba(5,4,106,0.6);
     border: 2px solid rgba(255,255,255,0.08);
     box-shadow: 0 4px 16px rgba(0,0,0,0.3);
   }
-  .vocab-card:hover { transform: translateY(-5px); border-color: var(--yellow); box-shadow: 0 8px 20px rgba(255,214,0,0.25); }
+  .vocab-card:hover { transform: translateY(-5px); border-color: #F1C405; box-shadow: 0 8px 20px rgba(241,196,5,0.25); }
   .vocab-card.revealed { border-color: var(--green); }
   .vocab-card img {
     width: 100%; height: 110px; object-fit: cover; object-position: center top;
@@ -188,7 +152,7 @@
   }
   .vocab-card-body { padding: 8px 10px; }
   .vocab-word {
-    font-size: 12px; font-weight: 800; color: var(--yellow);
+    font-size: 12px; font-weight: 800; color: #F1C405;
     display: none; animation: fadeIn 0.3s; text-align: center;
   }
   .vocab-card.revealed .vocab-word { display: block; }
@@ -205,7 +169,7 @@
     letter-spacing: 1px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);
   }
   .btn:hover { transform: translateY(-2px); filter: brightness(1.15); box-shadow: 0 6px 18px rgba(0,0,0,0.3); }
-  .btn-yellow { background: var(--yellow); color: var(--dark); }
+  .btn-yellow { background: #F1C405; color: var(--dark); }
   .btn-green { background: var(--green); color: #fff; }
   .btn-orange { background: var(--orange); color: #fff; }
   .btn-blue { background: var(--blue); color: #fff; }
@@ -213,7 +177,7 @@
   .btn-pink { background: var(--pink); color: #fff; }
 
   /* ===== VOCAB PRACTICE: 2-MIN SPRINT ===== */
-  #slide-3 .section-header { border-color: var(--green); }
+#slide-3 { background: linear-gradient(140deg, #05046A, #07068A); }
   .sprint-container {
     display: flex; flex-direction: column; align-items: center; gap: 24px;
     padding: 20px;
@@ -229,7 +193,7 @@
   }
   .sprint-timer-inner {
     width: 160px; height: 160px; border-radius: 50%;
-    background: #0D1B2A; display: flex; flex-direction: column;
+    background: #05046A; display: flex; flex-direction: column;
     align-items: center; justify-content: center;
   }
   .sprint-time {
@@ -245,12 +209,12 @@
     font-size: 13px; font-weight: 700; text-align: center; border: 1px solid rgba(255,255,255,0.1);
   }
   .sprint-status {
-    font-size: 18px; font-weight: 800; color: var(--yellow); text-align: center;
+    font-size: 18px; font-weight: 800; color: #F1C405; text-align: center;
     min-height: 28px;
   }
 
   /* ===== GRAMMAR ===== */
-  #slide-4 .section-header { border-color: var(--purple); }
+#slide-4 { background: linear-gradient(140deg, #05046A, #07068A); }
   .grammar-container { display: flex; flex-direction: column; gap: 20px; }
   .grammar-box {
     background: rgba(124,58,237,0.15); border: 2px solid rgba(124,58,237,0.4);
@@ -272,16 +236,16 @@
   .fp-time { background: var(--orange); color: #fff; }
   .fp-never { background: var(--pink); color: #fff; }
   .fp-ever { background: var(--purple); color: #fff; }
-  .fp-plus { color: var(--yellow); font-size: 20px; font-weight: 900; }
+  .fp-plus { color: #F1C405; font-size: 20px; font-weight: 900; }
   .grammar-examples { display: flex; flex-direction: column; gap: 8px; }
   .grammar-example {
     background: rgba(255,255,255,0.05); border-radius: 8px; padding: 10px 14px;
-    font-size: 14px; border-left: 3px solid var(--yellow);
+    font-size: 14px; border-left: 3px solid #F1C405;
     cursor: pointer; transition: all 0.2s;
   }
   .grammar-example:hover { background: rgba(255,255,255,0.1); }
   .grammar-example .en { color: #fff; font-weight: 600; }
-  .grammar-example .es { color: var(--yellow); font-size: 12px; display: none; }
+  .grammar-example .es { color: #F1C405; font-size: 12px; display: none; }
   .grammar-example.show .es { display: block; animation: fadeIn 0.3s; }
   .never-ever-box {
     background: rgba(233,30,140,0.12); border: 2px solid rgba(233,30,140,0.4);
@@ -298,10 +262,10 @@
   }
 
   /* ===== GRAMMAR PRACTICE: TRUTH AND A LIE ===== */
-  #slide-5 .section-header { border-color: var(--pink); }
+#slide-5 { background: linear-gradient(140deg, #05046A, #07068A); }
   .truth-container { display: flex; flex-direction: column; gap: 20px; align-items: center; }
   .truth-round {
-    font-size: 13px; color: var(--yellow); font-weight: 700; text-align: center;
+    font-size: 13px; color: #F1C405; font-weight: 700; text-align: center;
   }
   .truth-cards {
     display: grid; grid-template-columns: 1fr 1fr; gap: 16px; width: 100%; max-width: 700px;
@@ -329,10 +293,10 @@
     border: 1px solid rgba(255,255,255,0.1);
   }
   .truth-nav { display: flex; gap: 12px; align-items: center; }
-  .truth-counter { font-size: 13px; color: var(--yellow); font-weight: 700; }
+  .truth-counter { font-size: 13px; color: #F1C405; font-weight: 700; }
 
   /* ===== GAMIFICATION: ROUTINE CHAIN REACTION ===== */
-  #slide-6 .section-header { border-color: #00B4D8; }
+#slide-6 { background: linear-gradient(140deg, #05046A, #07068A); }
   .chain-container { display: flex; flex-direction: column; gap: 20px; align-items: center; }
   .chain-timer-wrap {
     display: flex; align-items: center; gap: 16px;
@@ -364,7 +328,7 @@
   .chain-count { font-size: 13px; color: #00B4D8; font-weight: 700; }
 
   /* ===== EXIT TICKET ===== */
-  #slide-7 .section-header { border-color: #F77F00; }
+#slide-7 { background: linear-gradient(140deg, #05046A, #07068A); }
   .exit-container { display: flex; flex-direction: column; gap: 20px; align-items: center; }
   .exit-card {
     background: rgba(247,127,0,0.1); border: 2px solid rgba(247,127,0,0.4);
@@ -401,7 +365,7 @@
   }
 
   /* ===== HOMEWORK ===== */
-  #slide-8 .section-header { border-color: #06D6A0; }
+#slide-8 { background: linear-gradient(140deg, #05046A, #07068A); }
   .hw-container { display: flex; flex-direction: column; gap: 16px; }
   .hw-item {
     background: rgba(6,214,160,0.1); border: 2px solid rgba(6,214,160,0.3);
@@ -425,17 +389,21 @@
 </head>
 <body>
 
-<!-- ===== NAVIGATION ===== -->
-<div id="nav">
-  <button class="nav-btn active" data-slide="0" onclick="goTo(0)">Cover</button>
-  <button class="nav-btn" data-slide="1" onclick="goTo(1)">Warm-up</button>
-  <button class="nav-btn" data-slide="2" onclick="goTo(2)">Vocabulary</button>
-  <button class="nav-btn" data-slide="3" onclick="goTo(3)">Vocab Practice</button>
-  <button class="nav-btn" data-slide="4" onclick="goTo(4)">Grammar</button>
-  <button class="nav-btn" data-slide="5" onclick="goTo(5)">Grammar Practice</button>
-  <button class="nav-btn" data-slide="6" onclick="goTo(6)">Chain Reaction</button>
-  <button class="nav-btn" data-slide="7" onclick="goTo(7)">Exit Ticket</button>
-  <button class="nav-btn" data-slide="8" onclick="goTo(8)">Homework</button>
+<!-- ===== NAV BAR ===== -->
+<div class="nav-bar" id="nav-bar">
+  <button class="nav-btn" id="nav-prev" onclick="navStep(-1)">&#9664;</button>
+  <div class="nav-pills" id="nav-pills">
+    <button class="nav-pill active" data-slide="0" onclick="goTo(0)">Cover</button>
+    <button class="nav-pill" data-slide="1" onclick="goTo(1)">Warm-up</button>
+    <button class="nav-pill" data-slide="2" onclick="goTo(2)">Vocabulary</button>
+    <button class="nav-pill" data-slide="3" onclick="goTo(3)">Vocab Practice</button>
+    <button class="nav-pill" data-slide="4" onclick="goTo(4)">Grammar</button>
+    <button class="nav-pill" data-slide="5" onclick="goTo(5)">Grammar Practice</button>
+    <button class="nav-pill" data-slide="6" onclick="goTo(6)">Chain Reaction</button>
+    <button class="nav-pill" data-slide="7" onclick="goTo(7)">Exit Ticket</button>
+    <button class="nav-pill" data-slide="8" onclick="goTo(8)">Homework</button>
+  </div>
+  <button class="nav-btn" id="nav-next" onclick="navStep(1)">&#9654;</button>
 </div>
 
 <!-- ===== SLIDE 0: COVER ===== -->
@@ -461,10 +429,9 @@
 </div>
 
 <div class="slide" id="slide-1">
-  <div class="section-header" style="border-color:var(--orange)">
-    <div class="section-tag">Warm-up · 5 min</div>
-    <div class="section-title">Early Bird <span style="color:var(--orange)">vs.</span> Night Owl</div>
-    <div class="section-subtitle">Which one are you? Click to choose!</div>
+  <div class="top-header">
+    <div class="header-left"><span class="header-tag" style="background:#F1C405;color:#05046A">Warm-up · 5 min</span><span class="header-title">Early Bird <span style="color:var(--orange)">vs.</span> Night Owl</span></div>
+    <span class="slide-counter">Which one are you? Click to choose!</span>
   </div>
   <div class="section-content">
     <div class="warmup-container" style="height: calc(100% - 80px);">
@@ -490,10 +457,9 @@
 
 <!-- ===== SLIDE 2: VOCABULARY ===== -->
 <div class="slide" id="slide-2">
-  <div class="section-header" style="border-color:var(--yellow)">
-    <div class="section-tag">Vocabulary · 5 min</div>
-    <div class="section-title">Daily <span style="color:var(--yellow)">Routines</span></div>
-    <div class="section-subtitle">Click each card to reveal the word</div>
+  <div class="top-header">
+    <div class="header-left"><span class="header-tag" style="background:#F1C405;color:#05046A">Vocabulary · 5 min</span><span class="header-title">Daily <span style="color:#F1C405">Routines</span></span></div>
+    <span class="slide-counter">Click each card to reveal the word</span>
   </div>
   <div class="section-content">
     <div class="vocab-controls">
@@ -605,10 +571,9 @@
 
 <!-- ===== SLIDE 3: VOCAB PRACTICE - 2-MIN SPRINT ===== -->
 <div class="slide" id="slide-3">
-  <div class="section-header" style="border-color:var(--green)">
-    <div class="section-tag">Vocabulary Practice · 10 min</div>
-    <div class="section-title">2-Minute <span style="color:var(--green)">Sprint</span></div>
-    <div class="section-subtitle">How many activities can you describe in 2 minutes?</div>
+  <div class="top-header">
+    <div class="header-left"><span class="header-tag" style="background:#F1C405;color:#05046A">Vocabulary Practice · 10 min</span><span class="header-title">2-Minute <span style="color:var(--green)">Sprint</span></span></div>
+    <span class="slide-counter">How many activities can you describe in 2 minutes?</span>
   </div>
   <div class="section-content">
     <div class="sprint-container">
@@ -648,10 +613,9 @@
 
 <!-- ===== SLIDE 4: GRAMMAR ===== -->
 <div class="slide" id="slide-4">
-  <div class="section-header" style="border-color:var(--purple)">
-    <div class="section-tag">Grammar · 10 min</div>
-    <div class="section-title">Simple Present <span style="color:var(--purple)">&amp; Never Ever</span></div>
-    <div class="section-subtitle">Click examples to see the translation</div>
+  <div class="top-header">
+    <div class="header-left"><span class="header-tag" style="background:#F1C405;color:#05046A">Grammar · 10 min</span><span class="header-title">Simple Present <span style="color:var(--purple)">&amp; Never Ever</span></span></div>
+    <span class="slide-counter">Click examples to see the translation</span>
   </div>
   <div class="section-content">
     <div class="grammar-container">
@@ -710,10 +674,9 @@
 
 <!-- ===== SLIDE 5: GRAMMAR PRACTICE - TRUTH AND A LIE ===== -->
 <div class="slide" id="slide-5">
-  <div class="section-header" style="border-color:var(--pink)">
-    <div class="section-tag">Grammar Practice · 15 min</div>
-    <div class="section-title">Truth and <span style="color:var(--pink)">a Lie</span></div>
-    <div class="section-subtitle">Two statements — one is true, one is a lie. Can you guess which?</div>
+  <div class="top-header">
+    <div class="header-left"><span class="header-tag" style="background:#F1C405;color:#05046A">Grammar Practice · 15 min</span><span class="header-title">Truth and <span style="color:var(--pink)">a Lie</span></span></div>
+    <span class="slide-counter">Two statements — one is true, one is a lie. Can you guess which?</span>
   </div>
   <div class="section-content">
     <div class="truth-container">
@@ -743,10 +706,9 @@
 
 <!-- ===== SLIDE 6: GAMIFICATION - ROUTINE CHAIN REACTION ===== -->
 <div class="slide" id="slide-6">
-  <div class="section-header" style="border-color:#00B4D8">
-    <div class="section-tag">Speaking Activity · 10 min</div>
-    <div class="section-title">Routine <span style="color:#00B4D8">Chain Reaction</span></div>
-    <div class="section-subtitle">Build the longest routine chain without breaking it!</div>
+  <div class="top-header">
+    <div class="header-left"><span class="header-tag" style="background:#F1C405;color:#05046A">Speaking Activity · 10 min</span><span class="header-title">Routine <span style="color:#00B4D8">Chain Reaction</span></span></div>
+    <span class="slide-counter">Build the longest routine chain without breaking it!</span>
   </div>
   <div class="section-content">
     <div class="chain-container">
@@ -779,10 +741,9 @@
 
 <!-- ===== SLIDE 7: EXIT TICKET ===== -->
 <div class="slide" id="slide-7">
-  <div class="section-header" style="border-color:#F77F00">
-    <div class="section-tag">Exit Ticket · 5 min</div>
-    <div class="section-title">One-Word <span style="color:#F77F00">Commitment</span></div>
-    <div class="section-subtitle">Complete the sentences with your own truth</div>
+  <div class="top-header">
+    <div class="header-left"><span class="header-tag" style="background:#F1C405;color:#05046A">Exit Ticket · 5 min</span><span class="header-title">One-Word <span style="color:#F77F00">Commitment</span></span></div>
+    <span class="slide-counter">Complete the sentences with your own truth</span>
   </div>
   <div class="section-content">
     <div class="exit-container">
@@ -812,10 +773,9 @@
 
 <!-- ===== SLIDE 8: HOMEWORK ===== -->
 <div class="slide" id="slide-8">
-  <div class="section-header" style="border-color:#06D6A0">
-    <div class="section-tag">Homework</div>
-    <div class="section-title">Book <span style="color:#06D6A0">Exercises</span></div>
-    <div class="section-subtitle">Complete before the next session</div>
+  <div class="top-header">
+    <div class="header-left"><span class="header-tag" style="background:#F1C405;color:#05046A">Homework</span><span class="header-title">Book <span style="color:#06D6A0">Exercises</span></span></div>
+    <span class="slide-counter">Complete before the next session</span>
   </div>
   <div class="section-content">
     <div class="hw-container">
@@ -850,23 +810,28 @@
 <!-- ===== JAVASCRIPT ===== -->
 <script>
 // ===== NAVIGATION =====
+let current = 0;
 function goTo(n) {
-  document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-  var slide = document.getElementById('slide-' + n);
-  if (slide) { slide.classList.add('active'); slide.scrollTop = 0; }
-  var btn = document.querySelector('.nav-btn[data-slide="' + n + '"]');
-  if (btn) btn.classList.add('active');
-  // Hide nav bar on cover, show on all other slides
-  var nav = document.getElementById('nav');
-  if (n === 0) {
-    nav.style.display = 'none';
-    document.querySelectorAll('.slide').forEach(s => s.style.height = '100vh');
-  } else {
-    nav.style.display = 'flex';
-    document.querySelectorAll('.slide').forEach(s => s.style.height = 'calc(100vh - 50px)');
-  }
-  window.scrollTo(0,0);
+  const allSlides = document.querySelectorAll('.slide');
+  const pills = document.querySelectorAll('.nav-pill');
+  allSlides[current].classList.remove('active');
+  if (pills[current]) pills[current].classList.remove('active');
+  current = n;
+  allSlides[current].classList.add('active');
+  if (pills[current]) pills[current].classList.add('active');
+  // Hide nav on cover
+  const nb = document.getElementById('nav-bar');
+  if (nb) nb.style.display = current === 0 ? 'none' : 'flex';
+  // Update prev/next buttons
+  const prev = document.getElementById('nav-prev');
+  const next = document.getElementById('nav-next');
+  if (prev) prev.disabled = current === 0;
+  if (next) next.disabled = current === allSlides.length - 1;
+}
+function navStep(dir) {
+  const allSlides = document.querySelectorAll('.slide');
+  const newIdx = current + dir;
+  if (newIdx >= 0 && newIdx < allSlides.length) goTo(newIdx);
 }
 
 // ===== WARM-UP =====
@@ -1071,7 +1036,7 @@ function launchConfetti() {
   const container = document.getElementById('confetti');
   container.style.display = 'block';
   container.innerHTML = '';
-  const colors = ['#FFD600','#FF6B2B','#00B67A','#7C3AED','#E91E8C','#00B4D8'];
+  const colors = ['#F1C405','#FF6B2B','#00B67A','#7C3AED','#E91E8C','#00B4D8'];
   for (let i = 0; i < 60; i++) {
     const el = document.createElement('div');
     el.style.cssText = `
@@ -1088,9 +1053,14 @@ function launchConfetti() {
   setTimeout(() => { container.style.display = 'none'; container.innerHTML = ''; }, 4000);
 }
 
-// ===== INIT: hide nav on cover =====
+// ===== INIT =====
 document.addEventListener('DOMContentLoaded', function() {
-  document.getElementById('nav').style.display = 'none';
+  const nb = document.getElementById('nav-bar');
+  if (nb) nb.style.display = 'none';
+  const prev = document.getElementById('nav-prev');
+  if (prev) prev.disabled = true;
+  const next = document.getElementById('nav-next');
+  if (next) next.disabled = false;
 });
 </script>
 </body>
